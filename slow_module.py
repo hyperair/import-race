@@ -17,11 +17,15 @@ def list_globals():
     return list(globals())
 
 
-logger.info("before loop: %s", list_globals())
-try:
-    for x in globals():
-        logger.info("in loop before sleep: %s", list_globals())
-        time.sleep(1)
-        logger.info("in loop after sleep: %s", list_globals())
-except Exception as e:
-    logger.exception("caught exception: %s", list_globals())
+def run_loop():
+    logger.info("before loop: %s", list_globals())
+    try:
+        for x in globals():
+            logger.info("in loop before sleep: %s", list_globals())
+            time.sleep(random.random())
+            logger.info("in loop after sleep: %s", list_globals())
+    except Exception as e:
+        logger.exception("caught exception: %s", list_globals())
+
+
+run_loop()
