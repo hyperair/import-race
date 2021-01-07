@@ -1,5 +1,6 @@
 import random
 import threading
+import traceback
 import time
 
 def foo(): ...
@@ -14,5 +15,6 @@ try:
         print(f'{threading.current_thread().name}: before sleep', list(globals().keys()))
         time.sleep(1)
         print(f'{threading.current_thread().name}: during loop', list(globals().keys()))
-except Exception:
+except Exception as e:
     print(f'{threading.current_thread().name}: caught exception', list(globals().keys()))
+    traceback.print_exc()
