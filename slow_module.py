@@ -1,7 +1,11 @@
+import logging
 import random
 import threading
 import traceback
 import time
+
+logger = logging.getLogger(__name__)
+
 
 def foo(): ...
 time.sleep(random.random())
@@ -9,12 +13,15 @@ def bar(): ...
 def baz(): ...
 def asdf(): ...
 
-print(f'{threading.current_thread().name}: before loop', list(globals().keys()))
+def list_globals():
+    return list(globals())
+
+
+logger.info("before loop: %s", list_globals())
 try:
     for x in globals():
-        print(f'{threading.current_thread().name}: before sleep', list(globals().keys()))
+        logger.info("in loop before sleep: %s", list_globals())
         time.sleep(1)
-        print(f'{threading.current_thread().name}: during loop', list(globals().keys()))
+        logger.info("in loop after sleep: %s", list_globals())
 except Exception as e:
-    print(f'{threading.current_thread().name}: caught exception', list(globals().keys()))
-    traceback.print_exc()
+    logger.exception("caught exception: %s", list_globals())
